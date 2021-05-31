@@ -24,6 +24,9 @@ export class Section {
   id: number;
   name: string;
   tooltip?: string;
+  level: number;
+  visible: boolean;
+  open: boolean;
 }
 
 export class Text {
