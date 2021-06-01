@@ -64,28 +64,38 @@ export class AppComponent implements OnInit {
         timeFramePeriod: 1440,
       }];
 
-    this.sections = [{
-      name: 'A',
-      id: 1
-    }, {
-      name: 'B',
-      id: 2
-    }, {
-      name: 'C',
-      id: 3
-    }, {
-      name: 'D',
-      id: 4
-    }, {
-      name: 'E',
-      id: 5
-    }, {
-      name: 'F',
-      id: 6
-    }, {
-      name: 'G',
-      id: 7
-    }];
+      this.sections= [{
+        id: 1,
+        name: "System unit", 
+        level: 0,
+parentID: null,
+open: false,
+        visible: true
+},{
+        id: 2,
+        name: "Production line",
+        level: 1,
+        parentID: 1,
+        open: false,
+        visible: false
+},
+{
+        id: 3,
+        name: "Release line",
+        level: 1,
+        parentID: 1,
+        open: false,
+        visible: false
+},
+{
+        id: 4,
+        name: "Test enviroment",
+        level: 2,
+        parentID: 3,
+        open: false,
+        visible: false
+}
+]
 
     this.items = [{
       id: 1,

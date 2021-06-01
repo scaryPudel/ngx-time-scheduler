@@ -227,6 +227,27 @@ export class NgxTimeSchedulerComponent implements OnInit, OnDestroy {
     this.ShowCurrentTimeHandle = setTimeout(this.showCurrentTimeIndicator, 30000);
   }
 
+  toggleSection(sectionId:number){
+    console.log("toggleSection")
+    let changed = [];
+    let newState:boolean;
+    this.sections = this.sections.map((section:Section) => {
+      if(section.id === sectionId){
+        section.open = !section.open;
+        newState = section.open;
+      }else if(sectionId === section.parentID){
+        section.open = false; 
+        section.visible = newState;
+        changed.push(section.id)
+      }else if(changed.includes(section.parentID)){
+        section.open  = false;
+        section.visible = false;
+      }
+      return section
+    })
+    this.refreshView()
+  }
+
   gotoToday() {
     this.start = moment().startOf('day');
     this.changePeriod(this.currentPeriod);

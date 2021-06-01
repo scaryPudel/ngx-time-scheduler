@@ -1,12 +1,14 @@
 {
-  "name": "ngx-time-scheduler",
-  "version": "1.7.1",
+  "name": "ngx-time-schedule",
+  "version": "1.0.6",
   "description": "A simple Angular Timeline Scheduler library",
   "author": {
-    "name": "Abhishek Jain",
-    "email": "jabi1210@gmail.com"
+    "name": "katkagolenyova",
+    "email": "katka.golenyova@gmail.com"
   },
-  "publishConfig": { "registry": "https://registry.npmjs.org/" },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/abhishekjain12/ngx-time-scheduler.git"
@@ -35,6 +37,18 @@
   },
   "dependencies": {
     "@angular/cdk": "^9.2.4",
-    "moment": "^2.27.0"
-  }
+    "moment": "^2.27.0",
+    "tslib": "^1.10.0",
+    "@angular/material": "^9.1.11"
+  },
+  "main": "bundles/ngx-time-schedule.umd.js",
+  "module": "fesm5/ngx-time-schedule.js",
+  "es2015": "fesm2015/ngx-time-schedule.js",
+  "esm5": "esm5/ngx-time-schedule.js",
+  "esm2015": "esm2015/ngx-time-schedule.js",
+  "fesm5": "fesm5/ngx-time-schedule.js",
+  "fesm2015": "fesm2015/ngx-time-schedule.js",
+  "typings": "ngx-time-schedule.d.ts",
+  "metadata": "ngx-time-schedule.metadata.json",
+  "sideEffects": false
 }

@@ -27,6 +27,7 @@ export class Section {
   level?: number;
   visible?: boolean;
   open?: boolean;
+  parentID?: number;
 }
 
 export class Text {
