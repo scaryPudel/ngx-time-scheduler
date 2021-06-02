@@ -103,14 +103,16 @@ open: false,
       name: 'Item 1',
       start: moment().startOf('day'),
       end: moment().add(5, 'days').endOf('day'),
-      classes: ''
+      classes: '',
+      type: 'Frozen Zone'
     }, {
       id: 2,
       sectionID: 3,
       name: 'Item 2',
       start: moment().startOf('day'),
       end: moment().add(4, 'days').endOf('day'),
-      classes: ''
+      classes: '',
+      
     }, {
       id: 3,
       sectionID: 1,

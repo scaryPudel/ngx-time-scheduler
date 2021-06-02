@@ -18,6 +18,8 @@ export class Item {
   classes: string;
   sectionID: number;
   tooltip?: string;
+  type?: string;
+  desc?: string;
 }
 
 export class Section {

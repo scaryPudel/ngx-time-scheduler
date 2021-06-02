@@ -110,7 +110,7 @@
   position: absolute;
   min-height: 1em;
   clear: both;
-  background-color: #2299DD;
+  background-color: #e2007a;
   color: white;
   border-radius: 2px;
   cursor: pointer;
@@ -118,6 +118,27 @@
   border-width: 1px;
   border-style: solid;
   border-color: #C1C1C1;
+  
+}
+
+.classic-measure{
+  background-color: #e2007a;
+}
+
+.app-conflict{
+  border: 1px solid rgb(124, 124, 124);
+  background-color: rgb(255, 211, 41);
+  color: black;
+}
+
+.frozen-zone{
+  background-color: #a4a4a4;
+}
+
+.time-sch-item-content-type{
+  padding-left: 1em;
+  color: #4C4C4C;
+  font-size: 80%;
 }
 
 .time-sch-item-content {
@@ -134,15 +155,15 @@
   bottom: 2px;
 }
 
-.time-sch-item-start {
+/*.time-sch-item-start {
   left: 1px;
   border-right: 2px dotted #FFFFFF;
-}
+}*/
 
-.time-sch-item-end {
+/*.time-sch-item-end {
   right: 1px;
   border-left: 2px dotted #FFFFFF;
-}
+}*/
 
 .time-sch-current-time {
   position: absolute;

@@ -170,7 +170,8 @@
               class="time-sch-item-content"
               [title]="itemMeta.item.tooltip ? itemMeta.item.tooltip : ''"
             >
-              {{ itemMeta.item.name }}
+             <div> {{ itemMeta.item.name }} </div>
+             <div class="time-sch-item-content-type">{{ itemMeta.item.type}}</div>
             </div>
             <div class="time-sch-item-end" *ngIf="itemMeta.isEnd"></div>
           </div>
