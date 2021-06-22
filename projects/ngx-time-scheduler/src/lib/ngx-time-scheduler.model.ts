@@ -16,18 +16,18 @@ export class Item {
   start: moment.Moment;
   end: moment.Moment;
   classes: string;
-  sectionID: number;
+  sectionID: string;
   tooltip?: string;
 }
 
 export class Section {
-  id: number;
+  id: string;
   name: string;
   tooltip?: string;
   level?: number;
   visible?: boolean;
   open?: boolean;
-  parentID?: number;
+  parentId?: string;
 }
 
 export class Text {
