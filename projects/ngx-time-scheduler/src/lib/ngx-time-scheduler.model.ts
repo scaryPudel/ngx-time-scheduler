@@ -23,13 +23,13 @@ export class Item {
 }
 
 export class Section {
-  id: number;
+  id: string;
   name: string;
   tooltip?: string;
   level?: number;
   visible?: boolean;
   open?: boolean;
-  parentID?: number;
+  parentId?: number;
 }
 
 export class Text {
