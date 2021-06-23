@@ -59,6 +59,7 @@ export class NgxTimeSchedulerComponent implements OnInit, OnDestroy {
   sectionItems: SectionItem[];
   subscription = new Subscription();
 
+
   constructor(
     private changeDetector: ChangeDetectorRef,
     private service: NgxTimeSchedulerService
@@ -133,6 +134,7 @@ export class NgxTimeSchedulerComponent implements OnInit, OnDestroy {
   itemMetaCal(itemMeta: ItemMeta) {
     const foundStart = moment.max(itemMeta.item.start, this.start);
     const foundEnd = moment.min(itemMeta.item.end, this.end);
+    
 
     let widthMinuteDiff = Math.abs(foundStart.diff(foundEnd, 'minutes'));
     let leftMinuteDiff = foundStart.diff(this.start, 'minutes');
@@ -188,6 +190,7 @@ export class NgxTimeSchedulerComponent implements OnInit, OnDestroy {
   changePeriod(period: Period, userTrigger: boolean = true) {
     this.currentPeriod = period;
     const _start = this.start;
+
     this.end = moment(_start).add(this.currentPeriod.timeFrameOverall, 'minutes').endOf('day');
     this.currentPeriodMinuteDiff = Math.abs(this.start.diff(this.end, 'minutes'));
 
@@ -195,13 +198,21 @@ export class NgxTimeSchedulerComponent implements OnInit, OnDestroy {
       this.events.PeriodChange(this.start, this.end);
     }
 
-    if (this.showBusinessDayOnly) {
-      this.currentPeriodMinuteDiff -=
-        (this.getNumberOfWeekendDays(moment(this.start), moment(this.end)) * this.currentPeriod.timeFramePeriod);
+    /** Check if there is set start date of period */
+    if (!this.currentPeriod.startDate ){
+      this.start = _start;
+      this.end = moment().add(this.currentPeriod.timeFrameOverall, 'minutes').endOf('day');
+      
+    } else {
+      let sDate = this.currentPeriod.startDate;
+     this.start = sDate;
+     this.end = moment(sDate).add(this.currentPeriod.timeFrameOverall, 'minutes').endOf('day');
+     
     }
 
     this.header = new Array<Header>();
-    this.currentPeriod.timeFrameHeaders.forEach((ele: string, index: number) => {
+    
+    this.currentPeriod.timeFrameHeaders.forEach((ele: string, index: number) => {      
       this.header.push(this.getDatesBetweenTwoDates(ele, index));
     });
 
@@ -249,25 +260,48 @@ export class NgxTimeSchedulerComponent implements OnInit, OnDestroy {
   }
 
   gotoToday() {
+    let dayDuration = (Math.abs((moment().startOf('day')).diff(moment().endOf('day'), 'minutes')));
     this.start = moment().startOf('day');
+    this.currentPeriod.startDate = this.start;
+    this.currentPeriod.timeFrameOverall = dayDuration;
+    this.currentPeriod.timeFrameHeaders = ['HH'];
+    this.currentPeriod.timeFramePeriod = 60;
     this.changePeriod(this.currentPeriod);
   }
 
   nextPeriod() {
-    this.start.add(this.currentPeriod.timeFrameOverall, 'minutes');
+    this.start.add((this.currentPeriod.timeFrameOverall)+1, 'minutes');
     this.changePeriod(this.currentPeriod);
+    console.log(this.currentPeriod.timeFrameOverall)
+
+   /* if (this.currentPeriod.timeFrameOverall === 1439 || this.currentPeriod.timeFrameOverall === 365*1440){
+      this.start.add((this.currentPeriod.timeFrameOverall)+1, 'minutes');
+        this.changePeriod(this.currentPeriod);
+    }
+    else this.start.add((this.currentPeriod.timeFrameOverall)+1440, 'minutes');
+    this.changePeriod(this.currentPeriod);
+    console.log(this.currentPeriod.timeFrameOverall);*/
+
+    
+
   }
 
   previousPeriod() {
-    this.start.subtract(this.currentPeriod.timeFrameOverall, 'minutes');
+    console.log(this.currentPeriod.timeFrameOverall)
+    this.start.subtract((this.currentPeriod.timeFrameOverall), 'minutes');
+    console.log(this.start.subtract((this.currentPeriod.timeFrameOverall), 'minutes'))
     this.changePeriod(this.currentPeriod);
+   
   }
 
-  gotoDate(event: any) {
-    this.showGotoModal = false;
+  gotoDate(event: any) {    
     this.start = moment(event).startOf('day');
+    this.currentPeriod.startDate = this.start;
     this.changePeriod(this.currentPeriod);
+    this.showGotoModal = false;
   }
+
+  
 
   getDatesBetweenTwoDates(format: string, index: number): Header {
     const now = moment(this.start);
@@ -278,19 +312,25 @@ export class NgxTimeSchedulerComponent implements OnInit, OnDestroy {
     while (now.isBefore(this.end) || now.isSame(this.end)) {
       if (!this.showBusinessDayOnly || (now.day() !== 0 && now.day() !== 6)) {
         const headerDetails = new HeaderDetails();
+     
         headerDetails.name = now.locale(this.locale).format(format);
         if (prev && prev !== headerDetails.name) {
           colspan = 1;
+
         } else {
           colspan++;
           dates.headerDetails.pop();
+
         }
         prev = headerDetails.name;
         headerDetails.colspan = colspan;
+        
         headerDetails.tooltip = this.currentPeriod.timeFrameHeadersTooltip && this.currentPeriod.timeFrameHeadersTooltip[index] ?
           now.locale(this.locale).format(this.currentPeriod.timeFrameHeadersTooltip[index]) : '';
         dates.headerDetails.push(headerDetails);
+        
       }
+      
       now.add(this.currentPeriod.timeFramePeriod, 'minutes');
     }
     return dates;
@@ -369,6 +409,13 @@ export class NgxTimeSchedulerComponent implements OnInit, OnDestroy {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
+  }
+
+  itemTypeName(){
+    this.items.map(item => {
+     // console.log(item.type);
+      return item.type;
+    })
   }
 
 }

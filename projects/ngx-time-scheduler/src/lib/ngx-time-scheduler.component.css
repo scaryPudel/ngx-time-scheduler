@@ -182,3 +182,52 @@
   border: dotted 3px #999;
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
+
+.dropdown-period-btn {
+  float: left;
+  overflow: hidden;
+}
+
+.dropdown-period-btn .dropbtn {
+   
+  border: none;
+  outline: none;
+  color: white;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+
+.dropdown-period-btn-content {
+  display: none;
+  position: absolute;
+  z-index: 1;
+  background-color: white;
+}
+
+.dropdown-period-btn-content button {
+  float: none;
+  color: black;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-period-btn-content button:hover {
+  background-color: #ddd;
+}
+
+.dropdown-period-btn-content button {
+  background-color:white;
+  border: none;
+}
+
+.dropdown-period-btn:hover .dropdown-period-btn-content {
+  display: block;
+}
+
+
+/*div.time-sch-table-wrapper > table > tr:nth-child(1) > td:nth-child(2){
+  color: blue !important;
+  
+}*/

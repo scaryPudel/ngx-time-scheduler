@@ -8,6 +8,8 @@ export class Period {
   timeFrameHeaders: string[];
   timeFrameHeadersTooltip?: string[];
   tooltip?: string;
+  startDate?:moment.Moment;
+
 }
 
 export class Item {

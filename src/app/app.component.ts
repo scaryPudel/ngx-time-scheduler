@@ -18,6 +18,11 @@ export class AppComponent implements OnInit {
   itemCount = 3;
   sectionCount = 10;
 
+ 
+  
+
+  //quartal: Number = Math.abs(moment.diff(qend, 'minutes'));
+
   constructor(private service: NgxTimeSchedulerService) {
     this.events.SectionClickEvent = (section) => {
       this.eventOutput += '\n' + JSON.stringify(section);
@@ -34,35 +39,94 @@ export class AppComponent implements OnInit {
     this.events.ItemDropped = (item) => {
       this.eventOutput += '\n' + JSON.stringify(item);
     };
-    this.events.PeriodChange = (start, end) => {
+   /* this.events.PeriodChange = (start, end) => {
       this.eventOutput += '\n' + JSON.stringify(start) + ',' + JSON.stringify(end);
-    };
+    };*/
+    
+    this.events.PeriodChange = (start, end) => {
+        //console.log(start);
+        //console.log(moment().month());
+        //console.log(moment().daysInMonth());
+        let currentMonth = moment().month();
+        //console.log(moment(currentMonth).daysInMonth());
+        this.refresh();
+    }
+    
+    let quarterStart = moment().startOf('quarter');
+    let quarterEnd = moment().endOf('quarter');
+    let quarterDuration = Math.abs(quarterStart.diff(quarterEnd, 'minutes'));
+    let yearStart = moment().startOf('year');
+    let yearDudation = Math.abs(yearStart.diff(moment().endOf('year'), 'minutes'));
+
+    let monthDuration = Math.abs((moment().startOf('month')).diff(moment().endOf('month'), 'minutes'));
+    //let monthDuration = (moment().daysInMonth()); 
+    //console.log(moment().daysInMonth());
+    let dayDuration = (Math.abs((moment().startOf('day')).diff(moment().endOf('day'), 'minutes')));
+    console.log(dayDuration);
+    let weekDuration = (Math.abs((moment().startOf('isoWeek')).diff(moment().endOf('isoWeek'), 'minutes')));
+    console.log(weekDuration);
+    let week2Duration = (Math.abs((moment().startOf('week')).diff(moment().endOf('week'), 'minutes'))+1);
+    console.log(week2Duration);
 
     this.periods = [
       {
-        name: '2 week',
-        timeFrameHeaders: ['MMM YYYY', 'DD(ddd)'],
-        timeFrameHeadersTooltip: ['MMM YYYY', 'DD(ddd)'],
+        name: '1 day',
+        timeFrameOverall: dayDuration,
+        timeFramePeriod: 60 * 1,
+        timeFrameHeaders: [
+          'DD MMM',
+          'HH',
+          
+          
+        ],
         classes: '',
-        timeFrameOverall: 1440 * 14,
-        timeFramePeriod: 1440,
+        startDate: moment().startOf('day'),
       },
       {
         name: '3 days',
-        timeFramePeriod: (60 * 3),
-        timeFrameOverall: (60 * 24 * 3),
+        timeFramePeriod: (60 * 2),
+        timeFrameOverall: (60 * 24 * 2),
         timeFrameHeaders: [
           'Do MMM',
           'HH'
         ],
-        classes: 'period-3day',
+        classes: '',
       }, {
         name: '1 week',
-        timeFrameHeaders: ['MMM YYYY', 'DD(ddd)'],
+        timeFrameHeaders: ['D MMM'],
         classes: '',
-        timeFrameOverall: 1440 * 7,
+        timeFrameOverall: 1440*6,
         timeFramePeriod: 1440,
-      }];
+        startDate: moment().startOf('isoWeek'),
+      },{
+        name: '1 month',
+        timeFrameHeaders: ['MMM YYYY', 'DD'],
+        classes: '',
+        timeFrameOverall: monthDuration,
+        timeFramePeriod: 1440,
+        startDate: moment().startOf('month'),
+      
+      },
+      {
+        name: '1 year',
+        timeFrameHeaders: [ 'YYYY','MMM' ],
+        classes: '',
+        timeFrameOverall: yearDudation,
+        timeFramePeriod: yearDudation / 11,
+        startDate: yearStart,
+        
+              },
+      {
+        name: 'Current Quarter',
+        timeFrameHeaders: ['Qo', 'MMM YYYY'],
+        classes: '',
+        timeFrameOverall: quarterDuration,
+        timeFramePeriod: quarterDuration / 2,
+        startDate: quarterStart,
+      },
+      
+    
+    ];
 
       this.sections= [{
         id: 1,
@@ -112,7 +176,7 @@ open: false,
       start: moment().startOf('day'),
       end: moment().add(4, 'days').endOf('day'),
       classes: '',
-      
+
     }, {
       id: 3,
       sectionID: 1,
