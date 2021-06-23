@@ -212,9 +212,13 @@ Sections used to fill the scheduler.
 
 | Name    | Type   | Required | Default | Description |
 | ---     | ---    | ---      | ---     | ---         |
-| id      | number | Yes      | `null`  | A unique identifier for the section. |
+| id      | string | Yes      | `null`  | A unique identifier for the section. |
 | name    | string | Yes      | `null`  | The name to display for the section. |
 | tooltip | string | No       | `null`  | It is use to display tooltip for the section. |
+| level   | string | No       | `null`  | Define level of tree structure. |
+| visible | boolean| No       | `null`  | It is use to decide if section is visible in tree structure on init. |
+| open    | boolean| No       | `null`  | It is use to decide if section is open in tree structure on init. |
+| parentId| string | No       | `null`  | It is use to define parent of section. |
 
 #### Item
 Items used to fill the scheduler.

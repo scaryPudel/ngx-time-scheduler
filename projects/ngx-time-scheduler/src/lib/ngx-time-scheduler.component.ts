@@ -75,7 +75,7 @@ export class NgxTimeSchedulerComponent implements OnInit, OnDestroy {
     this.itemRemove();
     this.sectionPush();
     this.sectionPop();
-    this.sectionRemove();
+    //this.sectionRemove();
     this.refresh();
   }
 
@@ -238,7 +238,7 @@ export class NgxTimeSchedulerComponent implements OnInit, OnDestroy {
     this.ShowCurrentTimeHandle = setTimeout(this.showCurrentTimeIndicator, 30000);
   }
 
-  toggleSection(sectionId:number){
+  toggleSection(sectionId:string){
     console.log("toggleSection")
     let changed = [];
     let newState:boolean;
@@ -246,11 +246,11 @@ export class NgxTimeSchedulerComponent implements OnInit, OnDestroy {
       if(section.id === sectionId){
         section.open = !section.open;
         newState = section.open;
-      }else if(sectionId === section.parentID){
+      }else if(sectionId === section.parentId){
         section.open = false; 
         section.visible = newState;
         changed.push(section.id)
-      }else if(changed.includes(section.parentID)){
+      }else if(changed.includes(section.parentId)){
         section.open  = false;
         section.visible = false;
       }
@@ -390,14 +390,14 @@ export class NgxTimeSchedulerComponent implements OnInit, OnDestroy {
     }));
   }
 
-  sectionRemove() {
-    this.subscription.add(this.service.sectionId.asObservable().subscribe((sectionId: number) => {
+ /* sectionRemove() {
+    this.subscription.add(this.service.sectionId.asObservable().subscribe((sectionId: string) => {
       this.sections.splice(this.sections.findIndex((section) => {
         return section.id === sectionId;
       }), 1);
       this.refreshView();
     }));
-  }
+  }*/
 
   refresh() {
     this.subscription.add(this.service.refreshView.asObservable().subscribe(() => {
