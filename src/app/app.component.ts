@@ -17,6 +17,7 @@ export class AppComponent implements OnInit {
   items: Item[];
   itemCount = 3;
   sectionCount = 10;
+  sections2: Section[];
 
  
   
@@ -32,6 +33,8 @@ export class AppComponent implements OnInit {
     };
     this.events.ItemClicked = (item) => {
       this.eventOutput += '\n' + JSON.stringify(item);
+      this.service.setSections(this.sections2)
+      console.log("click")
     };
     this.events.ItemContextMenu = (item, {x, y}: MouseEvent) => {
       this.eventOutput += '\n' + JSON.stringify(item) + ',' + JSON.stringify({x, y});
@@ -129,41 +132,50 @@ export class AppComponent implements OnInit {
     ];
 
       this.sections= [{
-        id: 1,
+        id: "1",
         name: "System unit", 
         level: 0,
-parentID: null,
+parentId: null,
 open: false,
         visible: true
 },{
-        id: 2,
+        id: "2",
         name: "Production line",
         level: 1,
-        parentID: 1,
+        parentId: "1",
         open: false,
         visible: false
 },
 {
-        id: 3,
+        id: "3",
         name: "Release line",
         level: 1,
-        parentID: 1,
+        parentId: "1",
         open: false,
         visible: false
 },
 {
-        id: 4,
+        id: "4",
         name: "Test enviroment",
         level: 2,
-        parentID: 3,
+        parentId: "3",
         open: false,
         visible: false
 }
 ]
 
+  this.sections2 = [{
+    id: "4",
+    name: "Test enviroment",
+    level: 2,
+    parentId: "3",
+    open: false,
+    visible: false
+}]
+
     this.items = [{
       id: 1,
-      sectionID: 1,
+      sectionID: "1",
       name: 'Item 1',
       start: moment().startOf('day'),
       end: moment().add(5, 'days').endOf('day'),
@@ -171,7 +183,7 @@ open: false,
       type: 'Frozen Zone'
     }, {
       id: 2,
-      sectionID: 3,
+      sectionID: "3",
       name: 'Item 2',
       start: moment().startOf('day'),
       end: moment().add(4, 'days').endOf('day'),
@@ -179,49 +191,49 @@ open: false,
 
     }, {
       id: 3,
-      sectionID: 1,
+      sectionID: "1",
       name: 'Item 3',
       start: moment().add(1, 'days').startOf('day'),
       end: moment().add(3, 'days').endOf('day'),
       classes: ''
     }, {
       id: 4,
-      sectionID: 3,
+      sectionID: "3",
       name: 'Item 4',
       start: moment().add(1, 'days').startOf('day'),
       end: moment().add(3, 'days').endOf('day'),
       classes: ''
     }, {
       id: 5,
-      sectionID: 1,
+      sectionID: "1",
       name: 'Item 5',
       start: moment().add(7, 'days').startOf('day'),
       end: moment().add(8, 'days').endOf('day'),
       classes: ''
     }, {
       id: 6,
-      sectionID: 1,
+      sectionID: "1",
       name: 'Item 6',
       start: moment().subtract(3, 'days').startOf('day'),
       end: moment().subtract(1, 'days').endOf('day'),
       classes: ''
     }, {
       id: 7,
-      sectionID: 1,
+      sectionID: "1",
       name: 'Item 7',
       start: moment().subtract(2, 'days').startOf('day'),
       end: moment().add(2, 'days').endOf('day'),
       classes: ''
     }, {
       id: 8,
-      sectionID: 1,
+      sectionID: "1",
       name: 'Item 8',
       start: moment().add(3, 'days').startOf('day'),
       end: moment().add(7, 'days').endOf('day'),
       classes: ''
     }, {
       id: 9,
-      sectionID: 1,
+      sectionID: "1",
       name: 'Item 9',
       start: moment().subtract(2, 'days').startOf('day'),
       end: moment().add(7, 'days').endOf('day'),
@@ -234,15 +246,14 @@ open: false,
   }
 
   addItem() {
-    this.itemCount++;
-    this.service.itemPush({
-      id: this.itemCount,
-      sectionID: 5,
-      name: 'Item ' + this.itemCount,
-      start: moment().startOf('day'),
-      end: moment().add(3, 'days').endOf('day'),
-      classes: ''
-    });
+    this.service.sectionPush({
+      id: "4",
+      name: "Test enviroment",
+      level: 2,
+      parentId: "3",
+      open: false,
+      visible: false
+})
   }
 
   popItem() {
@@ -251,14 +262,6 @@ open: false,
 
   removeItem() {
     this.service.itemRemove(4);
-  }
-
-  addSection() {
-    this.sectionCount++;
-    this.service.sectionPush({
-      id: this.sectionCount,
-      name: 'Section ' + this.sectionCount
-    });
   }
 
   popSection() {

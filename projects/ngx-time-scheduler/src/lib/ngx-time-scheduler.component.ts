@@ -24,7 +24,7 @@ const moment = moment_;
 })
 export class NgxTimeSchedulerComponent implements OnInit, OnDestroy {
   @ViewChild('sectionTd') set SectionTd(elementRef: ElementRef) {
-    this.SectionLeftMeasure = elementRef.nativeElement.clientWidth + 'px';
+    this.SectionLeftMeasure = '300px';
     this.changeDetector.detectChanges();
   }
 
@@ -77,9 +77,11 @@ export class NgxTimeSchedulerComponent implements OnInit, OnDestroy {
     this.sectionPop();
     //this.sectionRemove();
     this.refresh();
+    this.setSections();
   }
 
   refreshView() {
+    console.log("refreshView")
     this.setSectionsInSectionItems();
     this.changePeriod(this.currentPeriod, false);
   }
@@ -89,6 +91,7 @@ export class NgxTimeSchedulerComponent implements OnInit, OnDestroy {
   }
 
   setSectionsInSectionItems() {
+    console.log("SectionItems")
     this.sectionItems = new Array<SectionItem>();
     this.sections.forEach(section => {
       const perSectionItem = new SectionItem();
@@ -96,6 +99,7 @@ export class NgxTimeSchedulerComponent implements OnInit, OnDestroy {
       perSectionItem.minRowHeight = this.minRowHeight;
       this.sectionItems.push(perSectionItem);
     });
+    console.log(this.sectionItems)
   }
 
   setItemsInSectionItems() {
@@ -387,6 +391,18 @@ export class NgxTimeSchedulerComponent implements OnInit, OnDestroy {
     this.subscription.add(this.service.section.asObservable().subscribe(() => {
       this.sections.pop();
       this.refreshView();
+    }));
+  }
+
+  setSections() {
+    this.subscription.add(this.service.sections.asObservable().subscribe((sections:Section[]) => {
+
+
+      this.sections = sections;
+      this.refreshView();
+      console.log(sections)
+      console.log(this.sections)
+      
     }));
   }
 

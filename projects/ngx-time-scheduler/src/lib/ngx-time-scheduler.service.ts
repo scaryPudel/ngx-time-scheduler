@@ -12,6 +12,7 @@ export class NgxTimeSchedulerService {
   public itemId = new Subject<number>();
   public sectionAdd = new Subject<Section>();
   public section = new Subject<Section>();
+  public sections = new Subject<Section[]>();
   public sectionId = new Subject<number>();
   public refreshView = new Subject();
 
@@ -39,6 +40,11 @@ export class NgxTimeSchedulerService {
 
   public sectionRemove(id: number): void {
     this.sectionId.next(id);
+  }
+
+  public setSections(sections: Section[]): void {
+    console.log("service")
+    this.sections.next(sections);
   }
 
   public refresh(): void {
