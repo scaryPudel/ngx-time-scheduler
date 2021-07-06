@@ -131,38 +131,68 @@ export class AppComponent implements OnInit {
     
     ];
 
-      this.sections= [{
-        id: "1",
-        name: "System unit", 
-        level: 0,
-parentId: null,
-open: false,
-        visible: true
-},{
-        id: "2",
-        name: "Production line",
-        level: 1,
-        parentId: "1",
-        open: false,
-        visible: false
-},
-{
-        id: "3",
-        name: "Release line",
-        level: 1,
-        parentId: "1",
-        open: false,
-        visible: false
-},
-{
-        id: "4",
-        name: "Test enviroment",
-        level: 2,
-        parentId: "3",
-        open: false,
-        visible: false
-}
-]
+      this.sections= [
+        {
+          id: "A1",
+          name: "GSO Unit",
+          level: 0,
+          parentId: null,
+        },
+        {
+          id: "AA",
+          name: "EasyS",
+          level: 1,
+          parentId: "A1",
+        },
+        {
+          id: "AB",
+          name: "DTCAL",
+          level: 1,
+          parentId: "A1",
+        },
+        {
+          id: "B1",
+          name: "One.ERP",
+          level: 0,
+          parentId: null,
+        },
+        {
+          id: "BA",
+          name: "BMC",
+          level: 1,
+          parentId: "B1",
+        },
+        {
+          id: "BB",
+          name: "Centuri",
+          level: 1,
+          parentId: "B1",
+        },
+        {
+          id: "A2S",
+          name: "EasyS-Prod",
+          level: 2,
+          parentId: "AA",
+        },
+        {
+          id: "A2F",
+          name: "BMC-Test",
+          level: 2,
+          parentId: "BA",
+        },
+        {
+          id: "A2S",
+          name: "BMC-Dev",
+          level: 2,
+          parentId: "BA",
+        },
+        {
+          id: "A2S",
+          name: "Centuri-OP",
+          level: 2,
+          parentId: "B1",
+        },
+      ];
 
   this.sections2 = [{
     id: "4",

@@ -81,7 +81,6 @@ export class NgxTimeSchedulerComponent implements OnInit, OnDestroy {
   }
 
   refreshView() {
-    console.log("refreshView")
     this.setSectionsInSectionItems();
     this.changePeriod(this.currentPeriod, false);
   }
@@ -91,7 +90,6 @@ export class NgxTimeSchedulerComponent implements OnInit, OnDestroy {
   }
 
   setSectionsInSectionItems() {
-    console.log("SectionItems")
     this.sectionItems = new Array<SectionItem>();
     this.sections.forEach(section => {
       const perSectionItem = new SectionItem();
@@ -99,7 +97,6 @@ export class NgxTimeSchedulerComponent implements OnInit, OnDestroy {
       perSectionItem.minRowHeight = this.minRowHeight;
       this.sectionItems.push(perSectionItem);
     });
-    console.log(this.sectionItems)
   }
 
   setItemsInSectionItems() {
@@ -243,7 +240,6 @@ export class NgxTimeSchedulerComponent implements OnInit, OnDestroy {
   }
 
   toggleSection(sectionId:string){
-    console.log("toggleSection")
     let changed = [];
     let newState:boolean;
     this.sections = this.sections.map((section:Section) => {
@@ -276,7 +272,6 @@ export class NgxTimeSchedulerComponent implements OnInit, OnDestroy {
   nextPeriod() {
     this.start.add((this.currentPeriod.timeFrameOverall)+1, 'minutes');
     this.changePeriod(this.currentPeriod);
-    console.log(this.currentPeriod.timeFrameOverall)
 
    /* if (this.currentPeriod.timeFrameOverall === 1439 || this.currentPeriod.timeFrameOverall === 365*1440){
       this.start.add((this.currentPeriod.timeFrameOverall)+1, 'minutes');
@@ -291,9 +286,7 @@ export class NgxTimeSchedulerComponent implements OnInit, OnDestroy {
   }
 
   previousPeriod() {
-    console.log(this.currentPeriod.timeFrameOverall)
     this.start.subtract((this.currentPeriod.timeFrameOverall), 'minutes');
-    console.log(this.start.subtract((this.currentPeriod.timeFrameOverall), 'minutes'))
     this.changePeriod(this.currentPeriod);
    
   }
@@ -400,8 +393,6 @@ export class NgxTimeSchedulerComponent implements OnInit, OnDestroy {
 
       this.sections = sections;
       this.refreshView();
-      console.log(sections)
-      console.log(this.sections)
       
     }));
   }
