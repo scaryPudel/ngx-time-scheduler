@@ -131,76 +131,158 @@ export class AppComponent implements OnInit {
     
     ];
 
-      this.sections= [
-        {
-          id: "A1",
-          name: "GSO Unit",
-          level: 0,
-          parentId: null,
+    const sortByParentChildRelationship = (inputArray) => {
+      const zeroLevel = inputArray.filter((f) => f.level === 0);
+      const firstLevel = inputArray.filter((f) => f.level === 1);
+      const secondLevel = inputArray.filter((f) => f.level === 2);
+    
+      const firstSort = firstLevel.reduce(
+        (acum, item) => {
+          const parentElement = acum.find((f) => f.id === item.parentId);
+          const indexOfParent = acum.indexOf(parentElement);
+          acum.splice(indexOfParent + 1, 0, item);
+          return acum;
         },
-        {
-          id: "AA",
-          name: "EasyS",
-          level: 1,
-          parentId: "A1",
+        [...zeroLevel]
+      );
+    
+      const secondSort = secondLevel.reduce(
+        (acum, item) => {
+          const parentElement = acum.find((f) => f.id === item.parentId);
+          const indexOfParent = acum.indexOf(parentElement);
+          acum.splice(indexOfParent + 1, 0, item);
+          return acum;
         },
-        {
-          id: "AB",
-          name: "DTCAL",
-          level: 1,
-          parentId: "A1",
-        },
-        {
-          id: "B1",
-          name: "One.ERP",
-          level: 0,
-          parentId: null,
-        },
-        {
-          id: "BA",
-          name: "BMC",
-          level: 1,
-          parentId: "B1",
-        },
-        {
-          id: "BB",
-          name: "Centuri",
-          level: 1,
-          parentId: "B1",
-        },
-        {
-          id: "A2S",
-          name: "EasyS-Prod",
-          level: 2,
-          parentId: "AA",
-        },
-        {
-          id: "A2F",
-          name: "BMC-Test",
-          level: 2,
-          parentId: "BA",
-        },
-        {
-          id: "A2S",
-          name: "BMC-Dev",
-          level: 2,
-          parentId: "BA",
-        },
-        {
-          id: "A2S",
-          name: "Centuri-OP",
-          level: 2,
-          parentId: "B1",
-        },
-      ];
+        [...firstSort]
+      );
+      return secondSort;
+    };
+    
+    // this.sections = sortByParentChildRelationship([
+    //   {
+    //     id: "RO_251", 
+    //     level: 0, 
+    //     name: "KOB", 
+    //     parentId: null,
+    //     open: true,
+    //     visible: true
+    //   }, 
+    //   {
+    //     id: "AG_1", 
+    //     level: 1, 
+    //     name: "Abili-T", 
+    //     parentId: "RO_251",
+    //     open: true,
+    //     visible: true
+    //   }, 
+    //   {
+    //     id: "AG_30", 
+    //     level: 1, 
+    //     name: "AProBA", 
+    //     parentId: "RO_251",
+    //     open: true,
+    //     visible: true
+    //   }, 
+    //   {
+    //     id: "AA_10", 
+    //     level: 2, 
+    //     name: "Abili-T_Abn_LuM", 
+    //     parentId: "AG_1",
+    //     open: true,
+    //     visible: true
+    //   }, 
+    //   {
+    //     id: "AA_11", 
+    //     level: 2, 
+    //     name: "ABILI-T_WIRK", 
+    //     parentId: "AG_1",
+    //     open: true,
+    //     visible: true
+    //   }, 
+    //   {
+    //     id: "AA_89", 
+    //     level: 2, 
+    //     name: "AProBA", 
+    //     parentId: "AG_30",
+    //     open: true,
+    //     visible: true
+    //   }, 
+    //   {
+    //     id: "AA_90", 
+    //     level: 2, 
+    //     name: "AProBA_ETA", 
+    //     parentId: "AG_30",
+    //     open: true,
+    //     visible: true
+    //   }
+    // ]); 
+
+    this.sections =[
+      {
+        id: "RO_251", 
+        level: 0, 
+        name: "KOB", 
+        parentId: null,
+        open: true,
+        visible: true
+      }, 
+      {
+        id: "AG_1", 
+        level: 1, 
+        name: "Abili-T", 
+        parentId: "RO_251",
+        open: true,
+        visible: true
+      }, 
+      {
+        id: "AG_30", 
+        level: 1, 
+        name: "AProBA", 
+        parentId: "RO_251",
+        open: true,
+        visible: true
+      }, 
+      {
+        id: "AA_10", 
+        level: 2, 
+        name: "Abili-T_Abn_LuM", 
+        parentId: "AG_1",
+        open: true,
+        visible: true
+      }, 
+      {
+        id: "AA_11", 
+        level: 2, 
+        name: "ABILI-T_WIRK", 
+        parentId: "AG_1",
+        open: true,
+        visible: true
+      }, 
+      {
+        id: "AA_89", 
+        level: 2, 
+        name: "AProBA", 
+        parentId: "AG_30",
+        open: true,
+        visible: true
+      }, 
+      {
+        id: "AA_90", 
+        level: 2, 
+        name: "AProBA_ETA", 
+        parentId: "AG_30",
+        open: true,
+        visible: true
+      }
+    ]; 
 
   this.sections2 = [{
     id: "4",
     name: "Test enviroment",
     level: 2,
     parentId: "3",
-    open: false,
-    visible: false
+    open: true,
+    visible: true
 }]
 
     this.items = [{
@@ -281,8 +363,8 @@ export class AppComponent implements OnInit {
       name: "Test enviroment",
       level: 2,
       parentId: "3",
-      open: false,
-      visible: false
+      open: true,
+      visible: true
 })
   }
 

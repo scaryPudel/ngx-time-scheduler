@@ -68,6 +68,7 @@ export class NgxTimeSchedulerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.sections = this.sortByParentChildRelationship(this.sections)
     this.setSectionsInSectionItems();
     this.changePeriod(this.periods[0], false);
     this.itemPush();
@@ -81,6 +82,7 @@ export class NgxTimeSchedulerComponent implements OnInit, OnDestroy {
   }
 
   refreshView() {
+    this.sections = this.sortByParentChildRelationship(this.sections)
     this.setSectionsInSectionItems();
     this.changePeriod(this.currentPeriod, false);
   }
@@ -98,6 +100,32 @@ export class NgxTimeSchedulerComponent implements OnInit, OnDestroy {
       this.sectionItems.push(perSectionItem);
     });
   }
+   sortByParentChildRelationship = (inputArray) => {
+    const zeroLevel = inputArray.filter((f) => f.level === 0);
+    const firstLevel = inputArray.filter((f) => f.level === 1);
+    const secondLevel = inputArray.filter((f) => f.level === 2);
+  
+    const firstSort = firstLevel.reduce(
+      (acum, item) => {
+        const parentElement = acum.find((f) => f.id === item.parentId);
+        const indexOfParent = acum.indexOf(parentElement);
+        acum.splice(indexOfParent + 1, 0, item);
+        return acum;
+      },
+      [...zeroLevel]
+    );
+  
+    const secondSort = secondLevel.reduce(
+      (acum, item) => {
+        const parentElement = acum.find((f) => f.id === item.parentId);
+        const indexOfParent = acum.indexOf(parentElement);
+        acum.splice(indexOfParent + 1, 0, item);
+        return acum;
+      },
+      [...firstSort]
+    );
+    return secondSort;
+  };
 
   setItemsInSectionItems() {
     const itemMetas = new Array<ItemMeta>();

@@ -6,17 +6,18 @@
   <div class="time-sch-header-wrapper mb-1">
     <div class="d-inline-block dropdown-period-btn">
       <button class="btn btn-outline-primary">Timeframe</button>
-    <div class="time-sch-period-container dropdown-period-btn-content">
-      <button
-        class="btn"
-        *ngFor="let period of periods"
-        [ngClass]="period.classes"
-        (click)="changePeriod(period)"
-        [title]="period.tooltip ? period.tooltip : ''"
-      >
-        {{ period.name }}
-      </button>
-    </div></div>
+      <div class="time-sch-period-container dropdown-period-btn-content">
+        <button
+          class="btn"
+          *ngFor="let period of periods"
+          [ngClass]="period.classes"
+          (click)="changePeriod(period)"
+          [title]="period.tooltip ? period.tooltip : ''"
+        >
+          {{ period.name }}
+        </button>
+      </div>
+    </div>
 
     <div class="time-sch-time-container">
       <button
@@ -105,10 +106,19 @@
                 sectionItem.section.tooltip ? sectionItem.section.tooltip : ''
               "
             >
-              <mat-icon *ngIf="sectionItem.section.open"
+              <mat-icon
+                *ngIf="
+                  sectionItem.section.open && sectionItem.section.level !== 2
+                "
                 >keyboard_arrow_down</mat-icon
               >
-              <mat-icon *ngIf="!sectionItem.section.open"
+              <mat-icon
+                *ngIf="
+                  !sectionItem.section.open && sectionItem.section.level !== 2
+                "
+                >keyboard_arrow_right</mat-icon
+              >
+              <mat-icon class="white" *ngIf="sectionItem.section.level == 2"
                 >keyboard_arrow_right</mat-icon
               >
               {{ sectionItem.section.name }}
@@ -172,8 +182,8 @@
               class="time-sch-item-content"
               [title]="itemMeta.item.tooltip ? itemMeta.item.tooltip : ''"
             >
-             <div> {{ itemMeta.item.name }} </div>
-             <div class="time-sch-item-content-type">{{itemTypeName()}}</div>
+              <div>{{ itemMeta.item.name }}</div>
+              <div class="time-sch-item-content-type">{{ itemTypeName() }}</div>
             </div>
             <div class="time-sch-item-end" *ngIf="itemMeta.isEnd"></div>
           </div>
