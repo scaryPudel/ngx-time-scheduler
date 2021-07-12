@@ -206,6 +206,7 @@ Object with properties which create periods that can be used to traverse the cal
 | timeFrameHeaders        | string[]  | Yes      | `null`    | An array of [momentjs formats](http://momentjs.com/docs/#/displaying/format/) which is use to display the header rows at the top of the scheduler. Rather than repeating formats, the scheduler will merge all cells which are followed by a cell which shows the same date. For example, instead of seeing "Tuesday, Tuesday, Tuesday" with "3pm, 6pm, 9pm" below it, you'll instead see "Tuesday" a single time. |
 | timeFrameHeadersTooltip | string[]  | No       | `null`    | An array of [momentjs formats](http://momentjs.com/docs/#/displaying/format/) which is use to display the tooltip of the header rows at the top of the scheduler. Rather than repeating formats, the scheduler will merge all cells which are followed by a cell which shows the same date. For example, instead of seeing "Tuesday, Tuesday, Tuesday" with "3pm, 6pm, 9pm" below it, you'll instead see "Tuesday" a single time. |
 | tooltip                 | string    | No       | `null`    | It is use to display tooltip on period button. |
+| startDate               | moment    | No       | `null`    | It is use for set up the first day of period. |
 
 #### Section
 Sections used to fill the scheduler.
@@ -232,14 +233,17 @@ Items used to fill the scheduler.
 | classes   | string | Yes      | `null`  | Any css classes you wish to add to this item. |
 | sectionID | number | Yes      | `null`  | The ID of the section that this item belongs to. |
 | tooltip   | string | No       | `null`  | It is use to display tooltip for the section. |
+| type      | string | No       | `null`  | It is use to define type of item. |
+| desc      | string | No       | `null`  | Store additional information about the item. |
+| visible   | string | No       | `null`  | It is use to define if item should be visible or not. |
 
 #### Text
 An object containing the text use in the scheduler, to be easily customized.
 
-| Name          | Type   | Default      |
+| Name          | Type   | Default      | Description |
 | ---           | ---    | ---          |
-| NextButton    | string | `'Next'`     |
-| PrevButton    | string | `'Prev'`     |
+|~~ NextButton  | string | `'Next'`~~   | Button text have been replaced by mat-icon <mat-icon>navigate_next</mat-icon>
+|~~ PrevButton  | string | `'Prev'` ~~  | Button text have been replaced by mat-icon <mat-icon>navigate_before</mat-icon>
 | TodayButton   | string | `'Today'`    |
 | GotoButton    | string | `'Go to'`    |
 | SectionTitle  | string | `'Section'`  |

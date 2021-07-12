@@ -51,4 +51,6 @@ export class NgxTimeSchedulerService {
     this.refreshView.next();
   }
 
+  
+
 }

@@ -22,6 +22,7 @@ export class Item {
   tooltip?: string;
   type?: string;
   desc?: string;
+  visible?: string;
 }
 
 export class Section {
@@ -35,15 +36,11 @@ export class Section {
 }
 
 export class Text {
-  NextButton: string;
-  PrevButton: string;
   TodayButton: string;
   GotoButton: string;
   SectionTitle: string;
 
   constructor() {
-    this.NextButton = 'Next';
-    this.PrevButton = 'Prev';
     this.TodayButton = 'Today';
     this.GotoButton = 'Go to';
     this.SectionTitle = 'Section';
@@ -61,6 +58,7 @@ export class Events {
   SectionClickEvent: (section: Section) => void;
   SectionContextMenuEvent: (section: Section, event: MouseEvent) => void;
   PeriodChange: (start: moment.Moment, end: moment.Moment) => void;
+  
 }
 
 export class SectionItem {

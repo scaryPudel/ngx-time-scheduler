@@ -29,7 +29,7 @@ export class NgxTimeSchedulerComponent implements OnInit, OnDestroy {
   }
 
   @Input() currentTimeFormat = 'DD-MMM-YYYY HH:mm';
-  @Input() showCurrentTime = true;
+  @Input() showCurrentTime = false;
   @Input() showGoto = true;
   @Input() showToday = true;
   @Input() allowDragging = false;
@@ -45,6 +45,7 @@ export class NgxTimeSchedulerComponent implements OnInit, OnDestroy {
   @Input() periods: Period[];
   @Input() events: Events = new Events();
   @Input() start = moment().startOf('day');
+  @Input() itemType:string = "something"
 
   end = moment().endOf('day');
   showGotoModal = false;
@@ -58,7 +59,7 @@ export class NgxTimeSchedulerComponent implements OnInit, OnDestroy {
   header: Header[];
   sectionItems: SectionItem[];
   subscription = new Subscription();
-
+  
 
   constructor(
     private changeDetector: ChangeDetectorRef,
@@ -79,12 +80,20 @@ export class NgxTimeSchedulerComponent implements OnInit, OnDestroy {
     //this.sectionRemove();
     this.refresh();
     this.setSections();
+    
+  }
+
+ public setItemType(){
+   return this.itemType = "else"
+    
   }
 
   refreshView() {
     this.sections = this.sortByParentChildRelationship(this.sections)
     this.setSectionsInSectionItems();
     this.changePeriod(this.currentPeriod, false);
+    this.isItemVisible();
+    
   }
 
   trackByFn(index, item) {
@@ -284,7 +293,25 @@ export class NgxTimeSchedulerComponent implements OnInit, OnDestroy {
       }
       return section
     })
+    this.isItemVisible();
     this.refreshView()
+  }
+
+  isItemVisible(){
+  
+    this.sectionItems.map((section) => {
+     
+        section.itemMetas.map((item) => {
+          if (section.section.visible === false){
+            if (section.section.id === item.item.sectionID)
+           {
+            item.item.visible = "hidden";
+            }}
+            else item.item.visible = "visible";
+          });
+        
+      });
+
   }
 
   gotoToday() {
@@ -298,24 +325,98 @@ export class NgxTimeSchedulerComponent implements OnInit, OnDestroy {
   }
 
   nextPeriod() {
-    this.start.add((this.currentPeriod.timeFrameOverall)+1, 'minutes');
-    this.changePeriod(this.currentPeriod);
-
-   /* if (this.currentPeriod.timeFrameOverall === 1439 || this.currentPeriod.timeFrameOverall === 365*1440){
-      this.start.add((this.currentPeriod.timeFrameOverall)+1, 'minutes');
+   /* this.start.add((this.currentPeriod.timeFrameOverall)+1, 'minutes');
+    this.changePeriod(this.currentPeriod);*/
+    switch(this.currentPeriod.timeFrameOverall){
+      //day
+      case 1439: {
+        this.start.add((this.currentPeriod.timeFrameOverall)+1, 'minutes');
         this.changePeriod(this.currentPeriod);
-    }
-    else this.start.add((this.currentPeriod.timeFrameOverall)+1440, 'minutes');
-    this.changePeriod(this.currentPeriod);
-    console.log(this.currentPeriod.timeFrameOverall);*/
-
-    
+        break;
+      }
+      //week
+      case 8640:{
+        this.start.add((this.currentPeriod.timeFrameOverall)+1440, 'minutes');
+        this.changePeriod(this.currentPeriod);
+        break;
+      }
+      //month
+      case 44639:{
+        this.start.add((this.currentPeriod.timeFrameOverall)+1, 'minutes');
+        this.changePeriod(this.currentPeriod);
+        break;
+      }
+      //year
+      case 525599: {
+        this.start.add((this.currentPeriod.timeFrameOverall)+1, 'minutes');
+        this.changePeriod(this.currentPeriod);
+        break;
+      }
+      //leap year
+      case 527039: {
+        this.start.add((this.currentPeriod.timeFrameOverall)+1, 'minutes');
+        this.changePeriod(this.currentPeriod);
+        break;
+      }
+      //quarter
+      case 132479: {
+        this.start.add((this.currentPeriod.timeFrameOverall)+1, 'minutes');
+        this.changePeriod(this.currentPeriod);
+        break;
+      }
+        default: {this.start.add((this.currentPeriod.timeFrameOverall), 'minutes');
+                  this.changePeriod(this.currentPeriod);
+      }
+    }    
 
   }
 
   previousPeriod() {
-    this.start.subtract((this.currentPeriod.timeFrameOverall), 'minutes');
-    this.changePeriod(this.currentPeriod);
+
+    /*this.start.subtract((this.currentPeriod.timeFrameOverall), 'minutes');
+    this.changePeriod(this.currentPeriod);*/
+
+    switch(this.currentPeriod.timeFrameOverall){
+      //day
+      case 1439: {
+        this.start.subtract((this.currentPeriod.timeFrameOverall)+1, 'minutes');
+        this.changePeriod(this.currentPeriod);
+        break;
+      }
+      //week
+      case 8640:{
+        this.start.subtract((this.currentPeriod.timeFrameOverall)+1440, 'minutes');
+        this.changePeriod(this.currentPeriod);
+        break;
+      }
+      //month
+      case 44639:{
+        this.start.subtract((this.currentPeriod.timeFrameOverall)+1, 'minutes');
+        this.changePeriod(this.currentPeriod);
+        break;
+      }
+      //year
+      case 525599: {
+        this.start.subtract((this.currentPeriod.timeFrameOverall)+1, 'minutes');
+        this.changePeriod(this.currentPeriod);
+        break;
+      }
+      //leap year
+      case 527039: {
+        this.start.subtract((this.currentPeriod.timeFrameOverall)+1, 'minutes');
+        this.changePeriod(this.currentPeriod);
+        break;
+      }
+      //quarter
+      case 132479: {
+        this.start.subtract((this.currentPeriod.timeFrameOverall)+1, 'minutes');
+        this.changePeriod(this.currentPeriod);
+        break;
+      }
+        default: {this.start.subtract((this.currentPeriod.timeFrameOverall), 'minutes');
+                  this.changePeriod(this.currentPeriod);
+      }
+    }
    
   }
 
@@ -437,6 +538,7 @@ export class NgxTimeSchedulerComponent implements OnInit, OnDestroy {
   refresh() {
     this.subscription.add(this.service.refreshView.asObservable().subscribe(() => {
       this.refreshView();
+      
     }));
   }
 
@@ -446,11 +548,15 @@ export class NgxTimeSchedulerComponent implements OnInit, OnDestroy {
     }
   }
 
-  itemTypeName(){
+  /*itemTypeName(){
+    
     this.items.map(item => {
-     // console.log(item.type);
-      return item.type;
+     
+     this.itemType = item.type;
+      console.log(this.itemType);
+      
     })
-  }
+    return this.itemType
+  }*/
 
 }
