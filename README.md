@@ -241,12 +241,15 @@ Items used to fill the scheduler.
 An object containing the text use in the scheduler, to be easily customized.
 
 | Name          | Type   | Default      | Description |
-| ---           | ---    | ---          |
-|~~ NextButton  | string | `'Next'`~~   | Button text have been replaced by mat-icon <mat-icon>navigate_next</mat-icon>
-|~~ PrevButton  | string | `'Prev'` ~~  | Button text have been replaced by mat-icon <mat-icon>navigate_before</mat-icon>
-| TodayButton   | string | `'Today'`    |
-| GotoButton    | string | `'Go to'`    |
-| SectionTitle  | string | `'Section'`  |
+| ---           | ---    | ---          | --- |
+| TodayButton   | string | `'Today'`    | |
+| GotoButton    | string | `'Go to'`    | |
+| SectionTitle  | string | `'Section'`  | |
+
+
+> NextButton | `'Next'` |  Button text have been replaced by mat-icon <mat-icon>navigate_next</mat-icon>
+
+> PrevButton | `'Prev'` | Button text have been replaced by mat-icon <mat-icon>navigate_before</mat-icon>
 
 #### Events
 A selection of events are provided to hook into when creating the scheduler, and are triggered with most interactions with items.
