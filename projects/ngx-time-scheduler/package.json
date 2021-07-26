@@ -38,7 +38,7 @@
   "dependencies": {
     "@angular/cdk": "^9.2.4",
     "moment": "^2.27.0",
-    "tslib": "^1.10.0"
+    "tslib": "^2.0.0"
   },
   "main": "bundles/ngx-time-schedule.umd.js",
   "module": "fesm5/ngx-time-schedule.js",
