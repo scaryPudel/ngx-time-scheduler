@@ -548,15 +548,5 @@ export class NgxTimeSchedulerComponent implements OnInit, OnDestroy {
     }
   }
 
-  /*itemTypeName(){
-    
-    this.items.map(item => {
-     
-     this.itemType = item.type;
-      console.log(this.itemType);
-      
-    })
-    return this.itemType
-  }*/
 
 }
