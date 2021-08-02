@@ -144,64 +144,7 @@ export class AppComponent implements OnInit {
       return secondSort;
     };
     
-    // this.sections = sortByParentChildRelationship([
-    //   {
-    //     id: "RO_251", 
-    //     level: 0, 
-    //     name: "KOB", 
-    //     parentId: null,
-    //     open: true,
-    //     visible: true
-    //   }, 
-    //   {
-    //     id: "AG_1", 
-    //     level: 1, 
-    //     name: "Abili-T", 
-    //     parentId: "RO_251",
-    //     open: true,
-    //     visible: true
-    //   }, 
-    //   {
-    //     id: "AG_30", 
-    //     level: 1, 
-    //     name: "AProBA", 
-    //     parentId: "RO_251",
-    //     open: true,
-    //     visible: true
-    //   }, 
-    //   {
-    //     id: "AA_10", 
-    //     level: 2, 
-    //     name: "Abili-T_Abn_LuM", 
-    //     parentId: "AG_1",
-    //     open: true,
-    //     visible: true
-    //   }, 
-    //   {
-    //     id: "AA_11", 
-    //     level: 2, 
-    //     name: "ABILI-T_WIRK", 
-    //     parentId: "AG_1",
-    //     open: true,
-    //     visible: true
-    //   }, 
-    //   {
-    //     id: "AA_89", 
-    //     level: 2, 
-    //     name: "AProBA", 
-    //     parentId: "AG_30",
-    //     open: true,
-    //     visible: true
-    //   }, 
-    //   {
-    //     id: "AA_90", 
-    //     level: 2, 
-    //     name: "AProBA_ETA", 
-    //     parentId: "AG_30",
-    //     open: true,
-    //     visible: true
-    //   }
-    // ]); 
+
 
     this.sections =[
       {
@@ -339,6 +282,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.setTooltip();
+    this.service.setSections(this.sections);
    
   }
 

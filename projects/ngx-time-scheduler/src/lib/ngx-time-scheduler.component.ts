@@ -59,7 +59,7 @@ export class NgxTimeSchedulerComponent implements OnInit, OnDestroy {
   header: Header[];
   sectionItems: SectionItem[];
   subscription = new Subscription();
-  
+  visibleSections: Section[];
 
   constructor(
     private changeDetector: ChangeDetectorRef,
@@ -69,7 +69,8 @@ export class NgxTimeSchedulerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.sections = this.sortByParentChildRelationship(this.sections)
+    this.sections = this.sortByParentChildRelationship(this.sections);
+    this.visibleSections = this.sortByParentChildRelationship(this.sections);
     this.setSectionsInSectionItems();
     this.changePeriod(this.periods[0], false);
     this.itemPush();
@@ -89,7 +90,8 @@ export class NgxTimeSchedulerComponent implements OnInit, OnDestroy {
   }
 
   refreshView() {
-    this.sections = this.sortByParentChildRelationship(this.sections)
+    this.sections = this.sortByParentChildRelationship(this.sections);
+    this.visibleSections = this.sortByParentChildRelationship(this.sections);
     this.setSectionsInSectionItems();
     this.changePeriod(this.currentPeriod, false);
     this.isItemVisible();
@@ -293,8 +295,60 @@ export class NgxTimeSchedulerComponent implements OnInit, OnDestroy {
       }
       return section
     })
-    this.isItemVisible();
-    this.refreshView()
+   // this.isItemVisible();
+    this.checkSectionVisibility();
+    console.log(this.sections);
+    console.log(this.visibleSections)
+   // this.refreshView()
+  }
+
+  /** */
+  checkSectionVisibility(){
+    this.visibleSections = this.sections.filter((section:Section) => {
+      if (section.visible === true){
+        return section}
+    })
+
+    ////set section into sectionItem
+    this.sectionItems = new Array<SectionItem>();
+    this.visibleSections.forEach(section => {
+      const perSectionItem = new SectionItem();
+      perSectionItem.section = section;
+      perSectionItem.minRowHeight = this.minRowHeight;
+      this.sectionItems.push(perSectionItem);
+    });
+
+    ////set items into sectionItem
+    const itemMetas = new Array<ItemMeta>();
+
+    this.sectionItems.forEach(ele => {
+      ele.itemMetas = new Array<ItemMeta>();
+      ele.minRowHeight = this.minRowHeight;
+
+      this.items.filter(i => {
+        let itemMeta = new ItemMeta();
+
+        if (i.sectionID === ele.section.id) {
+          itemMeta.item = i;
+          if (itemMeta.item.start <= this.end && itemMeta.item.end >= this.start) {
+            itemMeta = this.itemMetaCal(itemMeta);
+            ele.itemMetas.push(itemMeta);
+            itemMetas.push(itemMeta);
+          }
+        }
+      });
+    });
+    const sortedItems = itemMetas.reduce((sortItems: {}, itemMeta: ItemMeta) => {
+      const index = this.sectionItems.findIndex(sectionItem => sectionItem.section.id === itemMeta.item.sectionID);
+      if (!sortItems[index]) {
+        sortItems[index] = [];
+      }
+      sortItems[index].push(itemMeta);
+      return sortItems;
+    }, {});
+
+    this.calCssTop(sortedItems);
+
   }
 
   isItemVisible(){
@@ -518,9 +572,8 @@ export class NgxTimeSchedulerComponent implements OnInit, OnDestroy {
 
   setSections() {
     this.subscription.add(this.service.sections.asObservable().subscribe((sections:Section[]) => {
-
-
       this.sections = sections;
+      this.visibleSections = sections;
       this.refreshView();
       
     }));
