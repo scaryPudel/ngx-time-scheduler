@@ -84,17 +84,13 @@ export class NgxTimeSchedulerComponent implements OnInit, OnDestroy {
     
   }
 
- public setItemType(){
-   return this.itemType = "else"
-    
-  }
 
   refreshView() {
     this.sections = this.sortByParentChildRelationship(this.sections);
     this.visibleSections = this.sortByParentChildRelationship(this.sections);
     this.setSectionsInSectionItems();
     this.changePeriod(this.currentPeriod, false);
-    this.isItemVisible();
+   // this.isItemVisible();
     
   }
 
@@ -296,10 +292,9 @@ export class NgxTimeSchedulerComponent implements OnInit, OnDestroy {
       return section
     })
    // this.isItemVisible();
+    this.refreshView();
     this.checkSectionVisibility();
-    console.log(this.sections);
-    console.log(this.visibleSections)
-   // this.refreshView()
+   
   }
 
   /** */
@@ -348,10 +343,9 @@ export class NgxTimeSchedulerComponent implements OnInit, OnDestroy {
     }, {});
 
     this.calCssTop(sortedItems);
-
   }
 
-  isItemVisible(){
+ /* isItemVisible(){
   
     this.sectionItems.map((section) => {
      
@@ -366,7 +360,7 @@ export class NgxTimeSchedulerComponent implements OnInit, OnDestroy {
         
       });
 
-  }
+  }*/
 
   gotoToday() {
     let dayDuration = (Math.abs((moment().startOf('day')).diff(moment().endOf('day'), 'minutes')));
