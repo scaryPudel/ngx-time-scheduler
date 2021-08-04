@@ -78,7 +78,12 @@
 
 .time-sch-wrapper .time-sch-section {
   width: 200px;
+  text-overflow: ellipsis;
+  overflow:hidden;
+  white-space:nowrap;
 }
+
+
 
 .time-sch-wrapper th,
 .time-sch-wrapper td {

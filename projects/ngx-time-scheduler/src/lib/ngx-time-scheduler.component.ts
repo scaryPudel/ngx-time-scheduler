@@ -24,7 +24,7 @@ const moment = moment_;
 })
 export class NgxTimeSchedulerComponent implements OnInit, OnDestroy {
   @ViewChild('sectionTd') set SectionTd(elementRef: ElementRef) {
-    this.SectionLeftMeasure = '300px';
+    this.SectionLeftMeasure = '200px';
     this.changeDetector.detectChanges();
   }
 
@@ -90,8 +90,7 @@ export class NgxTimeSchedulerComponent implements OnInit, OnDestroy {
     this.visibleSections = this.sortByParentChildRelationship(this.sections);
     this.setSectionsInSectionItems();
     this.changePeriod(this.currentPeriod, false);
-   // this.isItemVisible();
-    
+     
   }
 
   trackByFn(index, item) {
@@ -291,13 +290,13 @@ export class NgxTimeSchedulerComponent implements OnInit, OnDestroy {
       }
       return section
     })
-   // this.isItemVisible();
+
     this.refreshView();
     this.checkSectionVisibility();
    
   }
 
-  /** */
+  /**  */
   checkSectionVisibility(){
     this.visibleSections = this.sections.filter((section:Section) => {
       if (section.visible === true){
@@ -345,22 +344,6 @@ export class NgxTimeSchedulerComponent implements OnInit, OnDestroy {
     this.calCssTop(sortedItems);
   }
 
- /* isItemVisible(){
-  
-    this.sectionItems.map((section) => {
-     
-        section.itemMetas.map((item) => {
-          if (section.section.visible === false){
-            if (section.section.id === item.item.sectionID)
-           {
-            item.item.visible = "hidden";
-            }}
-            else item.item.visible = "visible";
-          });
-        
-      });
-
-  }*/
 
   gotoToday() {
     let dayDuration = (Math.abs((moment().startOf('day')).diff(moment().endOf('day'), 'minutes')));
