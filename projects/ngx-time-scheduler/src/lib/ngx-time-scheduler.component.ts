@@ -549,7 +549,7 @@ export class NgxTimeSchedulerComponent implements OnInit, OnDestroy {
 
   setSections() {
     this.subscription.add(this.service.sections.asObservable().subscribe((sections:Section[]) => {
-      this.sections = sections;
+     // this.sections = sections;
       this.visibleSections = sections;
       this.refreshView();
       
